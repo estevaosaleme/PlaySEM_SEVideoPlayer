@@ -1,0 +1,7 @@
+<root>
+  <facet id="jpt.jaxb">
+    <node name="classgen">
+      <attribute name="package" value="br.ufes.inf.lprm.sensoryeffect.mediaplayer.mpegv"/>
+    </node>
+  </facet>
+</root>
