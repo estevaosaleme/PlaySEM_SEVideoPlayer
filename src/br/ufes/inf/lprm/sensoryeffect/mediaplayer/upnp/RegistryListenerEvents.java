@@ -32,7 +32,7 @@ public class RegistryListenerEvents implements RegistryListener {
 	public void remoteDeviceRemoved(Registry registry, RemoteDevice device) {
 		SearchSERendererDevice.seRendererDeviceList.remove(device);
 		if (device == SearchSERendererDevice.selectedDevice)
-			VideoPlayer.lblSeDevice.setText(" Please select SE Device ");
+			VideoPlayer.lblSeDevice.setText(" Please select a SE Device ");
 	}
 	
 	public void localDeviceAdded(Registry registry, LocalDevice device) {
@@ -42,7 +42,7 @@ public class RegistryListenerEvents implements RegistryListener {
 	public void localDeviceRemoved(Registry registry, LocalDevice device) {
 		SearchSERendererDevice.seRendererDeviceList.remove(device);
 		if (device == SearchSERendererDevice.selectedDevice)
-			VideoPlayer.lblSeDevice.setText(" Please select SE Device ");
+			VideoPlayer.lblSeDevice.setText(" Please select a SE Device ");
 	}
 	
 	public void beforeShutdown(Registry registry) {

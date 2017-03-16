@@ -16,20 +16,20 @@ public class TimeLine extends java.util.TimerTask {
 	
 	public void stop(){
 		status = Status.STOPPED;
-		System.out.println(">>> STOP on " + currentTime);
+		System.out.println(">>> STOP at " + currentTime);
 		currentTime = 0;
 	}
 	
 	public void pause(long newCurrentTime){
 		status = Status.PAUSED;
 		currentTime = newCurrentTime;
-		System.out.println(">>> PAUSE on " + currentTime);
+		System.out.println(">>> PAUSE at " + currentTime);
 	}
 	
 	public void play(long newCurrentTime){
 		status = Status.PLAYING;
 		currentTime = newCurrentTime;
-		System.out.println(">>> PLAY on " + currentTime);
+		System.out.println(">>> PLAY at " + currentTime);
 	}
 	
 	public void setDuration(long duration){

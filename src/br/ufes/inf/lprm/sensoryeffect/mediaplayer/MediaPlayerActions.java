@@ -124,7 +124,7 @@ public class MediaPlayerActions {
 	
 	public static void finishFailLoadSEM(){	
 		semWaitMessage.dispose();
-		JOptionPane pane = new JOptionPane("Loading SEM failed. Please restart application and try again.", JOptionPane.ERROR_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+		JOptionPane pane = new JOptionPane("Loading failed. Please restart the application and try again.", JOptionPane.ERROR_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
 		semWaitMessage = pane.createDialog("Error");
 		semWaitMessage.setModal(false);
 		VideoPlayer.setIconApp(semWaitMessage);

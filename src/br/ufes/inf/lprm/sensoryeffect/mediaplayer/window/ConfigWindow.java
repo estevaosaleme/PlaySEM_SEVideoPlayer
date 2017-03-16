@@ -87,7 +87,7 @@ public class ConfigWindow extends JFrame {
 		try {
 			loadProperties();
 		} catch (IOException ex) {
-			JOptionPane.showMessageDialog(this, "The config.properties file does not exist, default properties loaded.");
+			JOptionPane.showMessageDialog(this, "The file 'config.properties' does not exist, default properties were loaded.");
 		}
 		textVlcPath.setText(configProps.getProperty("vlc_path"));
 		textThemePath.setText(configProps.getProperty("theme_path"));

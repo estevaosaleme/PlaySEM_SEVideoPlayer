@@ -52,7 +52,7 @@ public class VideoPlayer {
     
     public static JPanel panelControlInformation = new JPanel();
     public static JLabel lblStatus = new JLabel(" Stopped ");
-    public static JLabel lblSeDevice = new JLabel(" Please select SE Device ");
+    public static JLabel lblSeDevice = new JLabel(" Please select a SE Device ");
     public static JSlider jslider = new JSlider();
     
     public static boolean existsSem = false;
@@ -73,7 +73,7 @@ public class VideoPlayer {
 		}
 
     	if (!new File(vlcPath).exists()){
-    		JOptionPane.showMessageDialog(null, "Invalid VLC path or not installed. Please set config.properties correctly.", "Error",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "Invalid VLC path or it is not installed. Please set up the file 'config.properties' properly.", "Error",JOptionPane.ERROR_MESSAGE);
     		System.exit(1);
     	}
     	
@@ -160,7 +160,7 @@ public class VideoPlayer {
         mntmNewMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.ALT_MASK));
         mnOpen.add(mntmNewMenuItem);
         
-        JMenuItem mntSearchRendererDevices = new JMenuItem("Select SE Renderer Devices");
+        JMenuItem mntSearchRendererDevices = new JMenuItem("Select a SE Renderer Device");
         mntSearchRendererDevices.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
         		mediaPlayerActions.searchRendererDevices();

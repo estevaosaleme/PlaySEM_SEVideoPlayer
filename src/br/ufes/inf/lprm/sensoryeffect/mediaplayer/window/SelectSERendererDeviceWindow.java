@@ -33,7 +33,7 @@ public class SelectSERendererDeviceWindow extends JFrame {
 
 	public SelectSERendererDeviceWindow() {
 		VideoPlayer.setIconApp(this);
-		setTitle("Select SE Renderer Devices");
+		setTitle("Select a SE Renderer Device");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
 		setBounds(100, 100, 500, 219);
@@ -49,7 +49,7 @@ public class SelectSERendererDeviceWindow extends JFrame {
 		lstFoundDevices.setBounds(10, 31, 574, 116);
 		contentPanel.add(lstFoundDevices);
 		
-		JLabel lblListOfDevices = new JLabel("Found devices:");
+		JLabel lblListOfDevices = new JLabel("Active devices:");
 		lblListOfDevices.setBounds(10, 11, 100, 14);
 		contentPanel.add(lblListOfDevices);
 		{
@@ -66,7 +66,7 @@ public class SelectSERendererDeviceWindow extends JFrame {
 				buttonPane.add(btnRefresh);
 			}
 			{
-				JButton okButton = new JButton("Select Device");
+				JButton okButton = new JButton("Set the device");
 				okButton.addActionListener(new ActionListener() {
 					@SuppressWarnings("rawtypes")
 					public void actionPerformed(ActionEvent e) {
@@ -82,7 +82,7 @@ public class SelectSERendererDeviceWindow extends JFrame {
 							if (device !=null && device.getType().toString().startsWith("urn:schemas-upnp-org:device:SensoryEffectRenderer")){
 								SearchSERendererDevice.selectedDevice = device;
 								JOptionPane.showMessageDialog(null, SearchSERendererDevice.selectedDevice.getDisplayString() + " selected!");
-								VideoPlayer.lblSeDevice.setText(" SE Device: " + SearchSERendererDevice.selectedDevice.getDisplayString() + " (Click here to details)");
+								VideoPlayer.lblSeDevice.setText(" SE Device: " + SearchSERendererDevice.selectedDevice.getDisplayString() + " (Click here for details)");
 								CommandSERendererDevice.service = SearchSERendererDevice.selectedDevice.findService(new UDAServiceId("RendererControl"));
 								try {
 									CommandSERendererDevice.getCapabilities();
@@ -96,7 +96,7 @@ public class SelectSERendererDeviceWindow extends JFrame {
 								}
 								dispose();
 							} else
-								JOptionPane.showMessageDialog(null, "Please select SensoryEffectRenderer device type.");
+								JOptionPane.showMessageDialog(null, "Please select a 'SensoryEffectRenderer' device type.");
 						}
 					}
 				});
