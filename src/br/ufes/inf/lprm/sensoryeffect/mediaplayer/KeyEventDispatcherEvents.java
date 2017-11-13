@@ -27,6 +27,7 @@ public class KeyEventDispatcherEvents implements KeyEventDispatcher {
 				break;
 				case KeyEvent.VK_O :{
 					VideoPlayer.mediaPlayerActions.openVideo();
+				break;
 				}
 				case KeyEvent.VK_T :{
 					// Synchronization tests
