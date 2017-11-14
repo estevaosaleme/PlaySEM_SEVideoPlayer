@@ -10,6 +10,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Properties;
 
 import javax.swing.JDialog;
@@ -17,14 +19,15 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
-import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import br.ufes.inf.lprm.sensoryeffect.mediaplayer.upnp.CommandSERendererDevice;
 import br.ufes.inf.lprm.sensoryeffect.mediaplayer.upnp.SearchSERendererDevice;
 import br.ufes.inf.lprm.sensoryeffect.mediaplayer.window.AboutWindow;
 import br.ufes.inf.lprm.sensoryeffect.mediaplayer.window.ConfigWindow;
 import br.ufes.inf.lprm.sensoryeffect.mediaplayer.window.SEStatusWindow;
 import br.ufes.inf.lprm.sensoryeffect.mediaplayer.window.SelectSERendererDeviceWindow;
+import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 
 public class MediaPlayerActions {
 	
@@ -34,53 +37,92 @@ public class MediaPlayerActions {
 	static Properties configProps;
 	private static File selectedFile;
 	
+	private int playlistCurrentIndex = -1;
+	public int getPlaylistCurrentIndex() {
+		return playlistCurrentIndex;
+	}
+	public void setPlaylistCurrentIndex(int playlistCurrentIndex) {
+		this.playlistCurrentIndex = playlistCurrentIndex;
+	}
+	
+	private ArrayList<File> playList = new ArrayList<File>();
+	public ArrayList<File> getPlayList() {
+		return playList;
+	}
+	public void setPlayList(ArrayList<File> playList) {
+		this.playList = playList;
+	}
+
 	public static JDialog semWaitMessage = null;
 	private static Timer timerSemWaitMessage = null;
 	
 	public MediaPlayerActions(EmbeddedMediaPlayerComponent arg0){
 		embeddedMediaPlayerComponent = arg0;
 		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+		fileChooser.setMultiSelectionEnabled(true);
+		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter(
+			    "Video files", "mkv", "flv", "mov", "avi","mpg","mpeg", "ts", "qt", "wmv", "asf", "mp4", "m2v", "m4p", "m4v", "3gp", "mp2", "mpe"));
+		fileChooser.setAcceptAllFileFilterUsed(false);
 	}
 	
 	public void openVideo(){
 		int result = fileChooser.showOpenDialog(embeddedMediaPlayerComponent);
 		if (result == JFileChooser.APPROVE_OPTION) {
-		    selectedFile = fileChooser.getSelectedFile();
-		    File semFileXml = new File(selectedFile.getAbsolutePath().substring(0, selectedFile.getAbsolutePath().lastIndexOf('.')) + ".xml");
-		    File semFileSem = new File(selectedFile.getAbsolutePath().substring(0, selectedFile.getAbsolutePath().lastIndexOf('.')) + ".sem");
-		    embeddedMediaPlayerComponent.getMediaPlayer().prepareMedia(selectedFile.getAbsolutePath());
-		    embeddedMediaPlayerComponent.getMediaPlayer().parseMedia();
-		    if (semFileXml.exists() || semFileSem.exists()){
-		    	VideoPlayer.existsSem = true;
-		    	 if (semFileXml.exists())
-					try {
-						VideoPlayer.sem = readFile(semFileXml.getAbsolutePath());
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				else
-					try {
-						VideoPlayer.sem = readFile(semFileSem.getAbsolutePath());
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-		    	 if (VideoPlayer.seDeviceSelected)
-		    		 prepareSEDevice();
-		    	 else {
-		    		 embeddedMediaPlayerComponent.getMediaPlayer().playMedia(selectedFile.getAbsolutePath());
-		    		 embeddedMediaPlayerComponent.getMediaPlayer().stop();
-		    		 VideoPlayer.lblStatus.setText(" Ready to play ");
-		    	 }
-		    } 
-		    else {
-		    	VideoPlayer.existsSem = false;
-		    	VideoPlayer.sem = "";
-		    	VideoPlayer.autoColorExtraction = false;
-		    	embeddedMediaPlayerComponent.getMediaPlayer().playMedia(selectedFile.getAbsolutePath());
-		    	embeddedMediaPlayerComponent.getMediaPlayer().stop();
-		    	VideoPlayer.lblStatus.setText(" Ready to play ");
-		    }
+			if (fileChooser.getSelectedFiles() != null && fileChooser.getSelectedFiles().length > 0) {
+				VideoPlayer.frame.setTitle(VideoPlayer.playSemVersion);
+				setPlayList(new ArrayList<File>());
+				playlistCurrentIndex = fileChooser.getSelectedFiles().length -1;
+				for (int i = 0; i < fileChooser.getSelectedFiles().length; i++)
+					playList.add(fileChooser.getSelectedFiles()[i]);
+				Collections.sort(playList);
+				Collections.reverse(playList);
+				prepareMedia(playList.get(playlistCurrentIndex));
+			}
 		}
+	}
+	
+	public void prepareMedia(int index) {
+		prepareMedia(playList.get(index));
+	}
+	
+	public void prepareMedia(File file) {
+		selectedFile = file;
+	    embeddedMediaPlayerComponent.getMediaPlayer().prepareMedia(file.getAbsolutePath());
+	    embeddedMediaPlayerComponent.getMediaPlayer().parseMedia();
+	    
+	    File semFileXml = new File(file.getAbsolutePath().substring(0, file.getAbsolutePath().lastIndexOf('.')) + ".xml");
+		File semFileSem = new File(file.getAbsolutePath().substring(0, file.getAbsolutePath().lastIndexOf('.')) + ".sem");
+		
+		if (semFileXml.exists() || semFileSem.exists()){
+	    	VideoPlayer.existsSem = true;
+	    	 if (semFileXml.exists())
+				try {
+					VideoPlayer.sem = readFile(semFileXml.getAbsolutePath());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			else
+				try {
+					VideoPlayer.sem = readFile(semFileSem.getAbsolutePath());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+	    	 if (VideoPlayer.seDeviceSelected)
+	    		 prepareSEDevice();
+	    	 else {
+	    		 embeddedMediaPlayerComponent.getMediaPlayer().playMedia(file.getAbsolutePath());
+	    		 embeddedMediaPlayerComponent.getMediaPlayer().stop();
+	    		 VideoPlayer.lblStatus.setText(" Ready to play ");
+	    	 }
+	    } 
+	    else {
+	    	VideoPlayer.existsSem = false;
+	    	VideoPlayer.sem = "";
+	    	VideoPlayer.autoColorExtraction = false;
+	    	embeddedMediaPlayerComponent.getMediaPlayer().playMedia(file.getAbsolutePath());
+	    	embeddedMediaPlayerComponent.getMediaPlayer().stop();
+	    	VideoPlayer.lblStatus.setText(" Ready to play ");
+	    }
 	}
 	
 	private void prepareSEDevice(){

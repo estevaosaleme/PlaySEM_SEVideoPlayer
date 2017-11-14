@@ -7,6 +7,7 @@ import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
 
 public class MediaPlayerEvents implements MediaPlayerEventListener {
+
 	public void finished(MediaPlayer mediaPlayer) {
 		if (VideoPlayer.existsSem && VideoPlayer.seDeviceSelected) {
 			try {
@@ -15,6 +16,14 @@ public class MediaPlayerEvents implements MediaPlayerEventListener {
 				e.printStackTrace();
 			}
 		}
+		
+		if (VideoPlayer.mediaPlayerActions.getPlayList().size() > 1 &&
+				VideoPlayer.mediaPlayerActions.getPlaylistCurrentIndex() > -1) {
+			VideoPlayer.mediaPlayerActions.setPlaylistCurrentIndex(VideoPlayer.mediaPlayerActions.getPlaylistCurrentIndex()-1);
+			VideoPlayer.mediaPlayerActions.prepareMedia(VideoPlayer.mediaPlayerActions.getPlaylistCurrentIndex());
+		}
+		
+		VideoPlayer.frame.setTitle(VideoPlayer.playSemVersion);
 		VideoPlayer.lblStatus.setText(" Finished ");
 	}
 
@@ -24,6 +33,7 @@ public class MediaPlayerEvents implements MediaPlayerEventListener {
 
 	public void playing(MediaPlayer mediaPlayer) {
 		VideoPlayer.lblStatus.setText(" Playing ");
+		VideoPlayer.frame.setTitle(VideoPlayer.playSemVersion+ " - " + VideoPlayer.mediaPlayerActions.getPlayList().get(VideoPlayer.mediaPlayerActions.getPlaylistCurrentIndex()).getName());
 	}
 
 	public void stopped(MediaPlayer mediaPlayer) {
@@ -60,6 +70,9 @@ public class MediaPlayerEvents implements MediaPlayerEventListener {
 	    int secs = remainder;
 	    return String.format("%02d:%02d:%02d", hours, mins, secs);
 	}
+	
+	@Override
+	public void subItemFinished(MediaPlayer arg0, int arg1) {}
 	
 	@Override
 	public void opening(MediaPlayer mediaPlayer) {}
@@ -114,9 +127,6 @@ public class MediaPlayerEvents implements MediaPlayerEventListener {
 
 	@Override
 	public void snapshotTaken(MediaPlayer arg0, String arg1) {}
-
-	@Override
-	public void subItemFinished(MediaPlayer arg0, int arg1) {}
 
 	@Override
 	public void subItemPlayed(MediaPlayer arg0, int arg1) {}

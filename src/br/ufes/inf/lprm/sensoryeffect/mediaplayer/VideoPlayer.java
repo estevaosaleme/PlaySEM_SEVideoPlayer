@@ -62,6 +62,7 @@ public class VideoPlayer {
     public static String seDeviceCurrentTime = "";
     
     public static boolean autoColorExtraction = false;
+    public static String playSemVersion = "PlaySEM - SE Video Player v1.1";
     
     private static final String iconResource = "br/ufes/inf/lprm/sensoryeffect/mediaplayer/icon.png";
     
@@ -92,7 +93,7 @@ public class VideoPlayer {
 
     @SuppressWarnings("serial")
 	private VideoPlayer(String[] args) {
-        frame = new JFrame("PlaySEM - SE Video Player v1.0");
+        frame = new JFrame(playSemVersion);
         frame.addWindowListener(new VideoPlayerWindowListenerEvents());
         
         setIconApp(frame);
