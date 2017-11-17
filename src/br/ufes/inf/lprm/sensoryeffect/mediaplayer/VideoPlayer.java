@@ -14,6 +14,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -30,14 +31,14 @@ import javax.swing.border.BevelBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import com.sun.jna.Native;
+import com.sun.jna.NativeLibrary;
+
 import uk.co.caprica.vlcj.binding.LibVlc;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.embedded.FullScreenStrategy;
 import uk.co.caprica.vlcj.player.embedded.windows.Win32FullScreenStrategy;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
-
-import com.sun.jna.Native;
-import com.sun.jna.NativeLibrary;
 
 public class VideoPlayer {
 
@@ -49,6 +50,7 @@ public class VideoPlayer {
     public static String vlcPath = "";
     public static String themePath = "";
     public static boolean stats = false;
+    public static boolean autoPlay = false;
     
     public static JPanel panelControlInformation = new JPanel();
     public static JLabel lblStatus = new JLabel(" Stopped ");
@@ -217,6 +219,15 @@ public class VideoPlayer {
         });
         mntmFullscreen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.ALT_MASK));
         mnControls.add(mntmFullscreen);
+        
+        final JCheckBoxMenuItem mntmAutoplay = new JCheckBoxMenuItem("Autoplay");
+        mntmAutoplay.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		autoPlay = mntmAutoplay.getState();
+        	}
+        });
+        mntmAutoplay.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.ALT_MASK));
+        mnControls.add(mntmAutoplay);
         
         JMenu mnAbout = new JMenu("About");
         menuBar.add(mnAbout);

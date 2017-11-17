@@ -21,6 +21,15 @@ public class MediaPlayerEvents implements MediaPlayerEventListener {
 				VideoPlayer.mediaPlayerActions.getPlaylistCurrentIndex() > -1) {
 			VideoPlayer.mediaPlayerActions.setPlaylistCurrentIndex(VideoPlayer.mediaPlayerActions.getPlaylistCurrentIndex()-1);
 			VideoPlayer.mediaPlayerActions.prepareMedia(VideoPlayer.mediaPlayerActions.getPlaylistCurrentIndex());
+			
+			if (VideoPlayer.autoPlay == true) {
+				new java.util.Timer().schedule(new java.util.TimerTask() {
+		            @Override
+		            public void run() {
+		            	VideoPlayer.mediaPlayerActions.playPauseVideo();
+		            }
+		        }, 2000);
+			}
 		}
 		
 		VideoPlayer.frame.setTitle(VideoPlayer.playSemVersion);

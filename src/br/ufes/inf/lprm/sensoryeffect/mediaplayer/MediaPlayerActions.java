@@ -216,7 +216,6 @@ public class MediaPlayerActions {
 					e.printStackTrace();
 				}
 			}
-			
 		}
 		else{
 			embeddedMediaPlayerComponent.getMediaPlayer().play();

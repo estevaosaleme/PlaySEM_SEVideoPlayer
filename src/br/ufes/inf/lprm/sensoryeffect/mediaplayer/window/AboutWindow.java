@@ -15,6 +15,8 @@ import javax.swing.JTextPane;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import br.ufes.inf.lprm.sensoryeffect.mediaplayer.VideoPlayer;
+
 public class AboutWindow extends JDialog {
 
 	private static final long serialVersionUID = -697723265849658156L;
@@ -35,7 +37,7 @@ public class AboutWindow extends JDialog {
 		Border border = BorderFactory.createLineBorder(Color.BLACK);
 		txtpnSePlayer.setBorder(BorderFactory.createCompoundBorder(border, 
 	            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-		txtpnSePlayer.setText("PlaySEM - SE Video Player 1.0 - LPRM/UFES\r\nCreated by Estevao Bissoli Saleme\r\n\r\nFeatures:\r\n - Media Player.\r\n - UPnP Discovery SE Renderer Device.\r\n - UPnP Remote Control SE Renderer Device.\r\n - Supports theme settings.");
+		txtpnSePlayer.setText(VideoPlayer.playSemVersion  + " - LPRM/UFES\r\nCreated by Estevao Bissoli Saleme\r\n\r\nFeatures:\r\n - Media Player.\r\n - UPnP Discovery SE Renderer Device.\r\n - UPnP Remote Control SE Renderer Device.\r\n - Supports theme settings.");
 		txtpnSePlayer.setBounds(0, 0, 336, 157);
 		contentPanel.add(txtpnSePlayer);
 		
