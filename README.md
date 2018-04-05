@@ -26,4 +26,4 @@ Related paper:
 `theme_path=my.theme`<br />
 ***
 Please, report any application crash (or bug) via [issue tracker](https://github.com/estevaosaleme/PlaySEM_SEVideoPlayer/issues).<br />
-Visit the **PlaySEM SE Renderer** repository at https://github.com/estevaosaleme/PlaySEM_SERenderer/wiki
+Visit the **PlaySEM SE Renderer** repository at https://github.com/estevaosaleme/PlaySEM_SERenderer
