@@ -6,7 +6,7 @@ The **SE Video Player** is a multi-platform tool for playing back videos annotat
 
 **PlaySEM SE Video Player**
 ![PlaySEM SE Video Player 1.0](https://github.com/estevaosaleme/PlaySEM_SEVideoPlayer/blob/master/docs/PlaySEM_SEVideoPlayer.png)<br />
-[Click here](https://github.com/estevaosaleme/PlaySEM_SEVideoPlayer/wiki/Screenshots) to see other screenshots.
+[Click here](https://github.com/estevaosaleme/PlaySEM_SEVideoPlayer/tree/master/docs) to see other screenshots.
 
 # Pre-requisites:
 * Java 1.7 or greater (http://www.java.com/en/download)
