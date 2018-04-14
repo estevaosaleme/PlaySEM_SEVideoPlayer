@@ -2,7 +2,7 @@
 The **SE Video Player** is a multi-platform tool for playing back videos annotated with sensory effects metadata (MPEG-V format). If the video does not have an associated SEM or the PlaySEM SE Renderer is not available, the SE Video Player behaves like a traditional video player. Together with the PlaySEM SE Renderer, it is capable of simulating and rendering sensory effects.
 
 **Related paper**: 
-* [PlaySEM: a Platform for Rendering MulSeMedia Compatible with MPEG-V ](http://dx.doi.org/10.1145/2820426.2820450) - Webmedia'15
+* SALEME, E. B.; SANTOS, C. A. S., [PlaySEM: a Platform for Rendering MulSeMedia Compatible with MPEG-V](http://dx.doi.org/10.1145/2820426.2820450), WebMedia '15.
 
 **PlaySEM SE Video Player**
 ![PlaySEM SE Video Player 1.0](https://github.com/estevaosaleme/PlaySEM_SEVideoPlayer/blob/master/docs/PlaySEM_SEVideoPlayer.png)<br />
