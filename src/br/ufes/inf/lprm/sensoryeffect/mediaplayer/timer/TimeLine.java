@@ -1,5 +1,9 @@
 package br.ufes.inf.lprm.sensoryeffect.mediaplayer.timer;
 
+import br.ufes.inf.lprm.sensoryeffect.mediaplayer.VideoPlayer;
+import br.ufes.inf.lprm.sensoryeffect.mediaplayer.autoextraction.AutoExtraction;
+import br.ufes.inf.lprm.sensoryeffect.mediaplayer.upnp.CommandSERendererDevice;
+
 public class TimeLine extends java.util.TimerTask {
 
 	public static Status status = Status.STOPPED;
@@ -11,6 +15,15 @@ public class TimeLine extends java.util.TimerTask {
 		if (status.getId() == Status.PLAYING.getId() && currentTime <= duration){
 			currentTime += 1; 
 			System.out.println(currentTime);
+			
+			if (VideoPlayer.autoColorExtraction){
+				String[] hexColors = AutoExtraction.autoColorCalculationToHex(VideoPlayer.getFrame());
+				try {
+					CommandSERendererDevice.setLightColors(hexColors[0], hexColors[1], hexColors[2]);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	

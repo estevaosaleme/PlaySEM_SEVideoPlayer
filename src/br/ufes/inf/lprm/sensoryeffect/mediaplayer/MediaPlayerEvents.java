@@ -1,7 +1,5 @@
 package br.ufes.inf.lprm.sensoryeffect.mediaplayer;
 
-import br.ufes.inf.lprm.sensoryeffect.mediaplayer.autoextraction.AutoExtraction;
-import br.ufes.inf.lprm.sensoryeffect.mediaplayer.upnp.CommandSERendererDevice;
 import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
@@ -37,15 +35,19 @@ public class MediaPlayerEvents implements MediaPlayerEventListener {
 	}
 
 	public void paused(MediaPlayer mediaPlayer) {
+		VideoPlayer.timeLine.pause(mediaPlayer.getTime());
 		VideoPlayer.lblStatus.setText(" Paused: " +  formatTimeVideo((long)(mediaPlayer.getTime() / 1000.0)) + " of " + formatTimeVideo((long)(mediaPlayer.getLength() / 1000.0)) + " (" + mediaPlayer.getTime() + ")" + " ");
 	}
 
 	public void playing(MediaPlayer mediaPlayer) {
+		VideoPlayer.timeLine.setDuration(mediaPlayer.getLength());
+		VideoPlayer.timeLine.play(mediaPlayer.getTime());
 		VideoPlayer.lblStatus.setText(" Playing ");
 		VideoPlayer.frame.setTitle(VideoPlayer.playSemVersion+ " - " + VideoPlayer.mediaPlayerActions.getPlayList().get(VideoPlayer.mediaPlayerActions.getPlaylistCurrentIndex()).getName());
 	}
 
 	public void stopped(MediaPlayer mediaPlayer) {
+		VideoPlayer.timeLine.stop();
 		VideoPlayer.lblStatus.setText(" Stopped ");
 		VideoPlayer.jslider.setValue(0);
 	}
@@ -60,14 +62,6 @@ public class MediaPlayerEvents implements MediaPlayerEventListener {
 	
 	@Override
 	public void timeChanged(MediaPlayer mediaPlayer, long arg1) {
-		if (VideoPlayer.autoColorExtraction){
-			String[] hexColors = AutoExtraction.autoColorCalculationToHex(VideoPlayer.getFrame());
-			try {
-				CommandSERendererDevice.setLightColors(hexColors[0], hexColors[1], hexColors[2]);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 		VideoPlayer.lblStatus.setText(" Playing: " +  formatTimeVideo((long)(mediaPlayer.getTime() / 1000.0)) + " of " + formatTimeVideo((long)(mediaPlayer.getLength() / 1000.0)) + " (" + mediaPlayer.getTime() + ")" + " ");
 	}
 	private String formatTimeVideo(long val){

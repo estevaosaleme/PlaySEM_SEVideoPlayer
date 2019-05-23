@@ -11,6 +11,8 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
+import java.util.Timer;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -34,6 +36,7 @@ import javax.swing.event.ChangeListener;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
 
+import br.ufes.inf.lprm.sensoryeffect.mediaplayer.timer.TimeLine;
 import uk.co.caprica.vlcj.binding.LibVlc;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.embedded.FullScreenStrategy;
@@ -63,6 +66,8 @@ public class VideoPlayer {
     public static String seDeviceSelectedCapabilities = "";
     public static String seDeviceCurrentTime = "";
     
+    public static TimeLine timeLine = new TimeLine();
+    
     public static boolean autoColorExtraction = false;
     public static String playSemVersion = "PlaySEM - SE Video Player v1.1";
     
@@ -71,6 +76,10 @@ public class VideoPlayer {
     public static void main(final String[] args) {
     	try {
 			MediaPlayerActions.loadProperties();
+			// It sets a timer
+	       int interval = 50;
+	       Timer timer = new Timer();
+	       timer.scheduleAtFixedRate(timeLine, new Date(), interval);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
