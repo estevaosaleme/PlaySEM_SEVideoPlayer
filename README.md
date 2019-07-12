@@ -1,5 +1,5 @@
 # Intro
-The **SE Video Player** is a multi-platform tool for playing back videos annotated with sensory effects metadata (MPEG-V format). If the video does not have an associated SEM or the PlaySEM SE Renderer is not available, the SE Video Player behaves like a traditional video player. Together with the PlaySEM SE Renderer, it is capable of simulating and rendering sensory effects.
+**SE Video Player** is a multi-platform tool for playing back videos annotated with sensory effects metadata (MPEG-V format). If the video does not have an associated SEM or [PlaySEM SE Renderer](https://github.com/estevaosaleme/PlaySEM_SERenderer) is not available, SE Video Player behaves like a traditional video player. Together with [PlaySEM SE Renderer](https://github.com/estevaosaleme/PlaySEM_SERenderer), it is capable of simulating and rendering sensory effects.
 
 **Related paper**: 
 * SALEME, E. B.; SANTOS, C. A. S., [PlaySEM: a Platform for Rendering MulSeMedia Compatible with MPEG-V](http://dx.doi.org/10.1145/2820426.2820450), WebMedia '15.
@@ -13,7 +13,7 @@ The **SE Video Player** is a multi-platform tool for playing back videos annotat
 * VLC Media Player 2.1.3 or greater (http://www.videolan.org/vlc/)
 
 # Running: (Pay attention to the config.properties file)
-* [Download](https://github.com/estevaosaleme/PlaySEM_SEVideoPlayer/releases) the last release
+* [Download](https://github.com/estevaosaleme/PlaySEM_SEVideoPlayer/releases) the lastest release
 * Uncompress the file PlaySEM_SEVideoPlayer_< version >.zip
 * Run the command `java -jar PlaySEM_SEVideoPlayer.jar` (Please, check if you need to update the name of the jar file)
 
